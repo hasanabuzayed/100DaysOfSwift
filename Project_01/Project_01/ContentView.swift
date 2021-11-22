@@ -50,22 +50,7 @@ struct ContentView: View {
 
                 Section {
                     Text("$\(totalPerPerson, specifier: "%.2f")")
-
-                    if #available(iOS 15.0, *) {
-                        HStack(spacing: 20) {
-                            Image(systemName: "flag")
-                            Image(systemName: "heart")
-                            Image(systemName: "bolt")
-                            Image(systemName: "star")
-                        }
-                        HStack(spacing: 20) {
-                            Image(systemName: "flag")
-                            Image(systemName: "heart")
-                            Image(systemName: "bolt")
-                            Image(systemName: "star")
-                        }
-                        .symbolVariant(.fill)
-                    }
+                        .foregroundColor(tipPercentages[tipPersentage] == 0 ? .red : .black)
                 }
             }
             .navigationTitle("WeSplit")
