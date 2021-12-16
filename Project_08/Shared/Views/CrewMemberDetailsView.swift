@@ -20,6 +20,9 @@ struct CrewMemberDetailsView: View {
                     Text(crewMember.astronaut.description)
                         .padding()
                 }
+                .accessibilityElement(children: .ignore)
+                .accessibilityLabel(Text("Astronaut Details"))
+                .accessibilityValue(Text(crewMember.astronaut.description))
             }
             .background(.darkBackground)
             .navigationTitle(crewMember.astronaut.name)

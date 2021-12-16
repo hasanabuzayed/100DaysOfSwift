@@ -29,7 +29,9 @@ struct ContentView: View {
                 } label: {
                     Image(systemName: viewModel.displayMode.image)
                         .foregroundColor(.white)
+                        .accessibilityHidden(true)
                 }
+                .accessibilityValue(Text(viewModel.displayMode.accessibilityLabel))
             }
         }
     }

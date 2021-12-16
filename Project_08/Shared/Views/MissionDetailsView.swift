@@ -19,8 +19,11 @@ struct MissionDetailsView: View {
                         .scaledToFit()
                         .frame(maxWidth: geo.size.width * 0.6)
                         .padding(.top)
-                    
+                        .accessibilityLabel(Text("Mission Logo"))
+
                     Text(viewModel.formattedLaunchDate)
+                        .accessibilityLabel("Launch Date")
+                        .accessibilityValue(Text(viewModel.mission.formattedLaunchDate))
                     
                     VStack(alignment: .leading) {
                         Rectangle()

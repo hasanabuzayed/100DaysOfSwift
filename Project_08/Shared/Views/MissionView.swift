@@ -17,6 +17,7 @@ struct MissionView: View {
                 .scaledToFit()
                 .frame(width: 100, height: 100)
                 .padding()
+                .accessibilityLabel(Text("Mission Logo"))
             
             VStack {
                 Text(viewModel.mission.displayName)
@@ -26,6 +27,8 @@ struct MissionView: View {
                 Text(viewModel.mission.formattedLaunchDate)
                     .font(.caption)
                     .foregroundColor(.white.opacity(0.5))
+                    .accessibilityLabel("Launch Date")
+                    .accessibilityValue(Text(viewModel.mission.formattedLaunchDate))
             }
             .padding(.vertical)
             .frame(maxWidth: .infinity)
@@ -36,6 +39,7 @@ struct MissionView: View {
             RoundedRectangle(cornerRadius: 10, style: .continuous)
                 .stroke(.lightBackground)
         )
+        .accessibilityAddTraits(.isButton)
     }
 }
 

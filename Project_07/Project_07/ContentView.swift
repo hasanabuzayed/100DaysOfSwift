@@ -10,41 +10,13 @@ import SwiftUI
 struct ContentView: View {
     @StateObject var expenses = Expenses()
     @State private var showingAddExpense = false
-
+    
     var body: some View {
         NavigationView {
             List {
-                Section("Personal") {
-                    ForEach(expenses.personalItems) { item in
-                        HStack {
-                            VStack(alignment: .leading) {
-                                Text(item.name)
-                                    .font(.headline)
-                                Text(item.type)
-                            }
-                            Spacer()
-                            Text(item.amount, format: .currency(code: item.currency))
-                                .foregroundColor(expenses.colorFor(amount: item.amount))
-                        }
-                    }
-                    .onDelete(perform: expenses.removePersonalItems)
-                }
-
-                Section("Busniess") {
-                    ForEach(expenses.busniessItems) { item in
-                        HStack {
-                            VStack(alignment: .leading) {
-                                Text(item.name)
-                                    .font(.headline)
-                                Text(item.type)
-                            }
-                            Spacer()
-                            Text(item.amount, format: .currency(code: item.currency))
-                                .foregroundColor(expenses.colorFor(amount: item.amount))
-                        }
-                    }
-                    .onDelete(perform: expenses.removeBusniessItems)
-                }
+                buildSection(titled: "Personal", items: expenses.personalItems, onDelete: expenses.removePersonalItems)
+                
+                buildSection(titled: "Busniess", items: expenses.busniessItems, onDelete: expenses.removeBusniessItems)
             }
             .navigationTitle("iExpense")
             .toolbar {
@@ -59,8 +31,32 @@ struct ContentView: View {
             AddView(expenses: expenses)
         }
     }
-
-
+    
+    @ViewBuilder
+    private func buildSection(titled title: String, items: [ExpenseItem], onDelete action: ((IndexSet) -> Void)?) -> some View {
+        if items.isEmpty {
+            EmptyView()
+        } else {
+            Section(title) {
+                ForEach(items) { item in
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text(item.name)
+                                .font(.headline)
+                        }
+                        Spacer()
+                        Text(item.amount, format: .currency(code: item.currency))
+                            .foregroundColor(expenses.colorFor(amount: item.amount))
+                    }
+                    .accessibilityElement(children: .ignore)
+                    .accessibilityLabel(Text(item.name))
+                    .accessibilityValue(Text(item.amount, format: .currency(code: item.currency)))
+                    .accessibilityHint(Text(title))
+                }
+                .onDelete(perform: action)
+            }
+        }
+    }
 }
 
 struct ContentView_Previews: PreviewProvider {

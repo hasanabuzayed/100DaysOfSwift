@@ -28,6 +28,15 @@ struct MissionsViewModel {
                 return "rectangle.grid.1x2"
             }
         }
+        
+        var accessibilityLabel: String {
+            switch self {
+            case .grid:
+                return "Grid View"
+            case .list:
+                return "List View"
+            }
+        }
     }
     
     private static let astronauts: [String: Astronaut] = Bundle.main.decode("astronauts.json")
