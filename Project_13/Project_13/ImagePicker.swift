@@ -22,7 +22,9 @@ struct ImagePicker: UIViewControllerRepresentable {
                 guard let itemProvider = results.first?.itemProvider else { return }
                 if itemProvider.canLoadObject(ofClass: UIImage.self) {
                     itemProvider.loadObject(ofClass: UIImage.self) { image, _ in
-                        self.parent.image = image as? UIImage
+                        Task { @MainActor in
+                            self.parent.image = image as? UIImage
+                        }
                     }
                 }
             }
