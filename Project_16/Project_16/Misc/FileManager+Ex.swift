@@ -9,4 +9,9 @@ import Foundation
 
 extension FileManager {
     static let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+    
+    class func fileExists(_ filePath: String) -> Bool {
+        var isDirectory = ObjCBool(false)
+        return self.default.fileExists(atPath: filePath, isDirectory: &isDirectory)
+    }
 }
